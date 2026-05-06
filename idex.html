@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>‫Menu de autenticación‬</title>
+</head>
+<body>
+  <center>
+    <div id="windows">
+      <img id="logo" src="Logo.PNG"/>
+      <div id="alerta_nombre">
+        <h2 id="prints">sin errores en seccion</h2>
+        <input id="youname" type="text" placeholder="Ingrese su Nombre"/>
+      </div>
+        <form>
+          <select id="usuario">
+            <option value="not">Ingrese su Usuario</option>
+            <option value="1">R43-23-20-72-30-63</option>
+            <option value="0">E60-20-62-82-32-53</option>
+          </select>
+        </form>
+        <input inputmode="numeric" type="password" id="codigo" placeholder="Ingrese su Codigo"/>
+      <br/>
+      <input value="Verificar" type="button" id="BT" onclick="Confirmar()"/>
+    </div>
+  </center>
+</body>
+<style>
+body {
+  font-family: Arial, sans-serif;  
+  justify-content: center; 
+  align-items: center;
+  height: 100vh;
+  margin: 0; 
+  background-color: black;
+  padding: 20px 20px;
+  background-size: cover;
+  
+} 
+#windows {
+  background: cyan;
+  padding: 10px 10px;
+  border-radius: 59px;
+  border: 8px solid orange;
+  text-align: center;
+  background-image:url('Fondo.PNG');
+  background-size: cover;
+  background-clip: border;
+}
+@keyframes aparecer {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#subname {
+  border-radius: 20px;
+  background: black;
+  width: 250px;
+  animation: aparecer 3s linear;
+}
+input {
+  color: orange;
+  width: 250px;
+  font-size: 18px; 
+  border-radius: 15px;
+  border: 5px solid orange;
+  background-color: black;
+  padding: 10px; 
+  margin: 5px;
+  animation: aparecer 3s linear;
+}
+#usuario {
+  animation: aparecer 3s linear;
+  color: orange;
+  width: 250px;
+  font-size: 20px; 
+  border-radius: 10px;
+  border: 5px solid orange;
+  background-color: black;
+  padding: 10px; 
+  margin: 5px;
+}
+#BT {
+  padding: 5px 5px; 
+  background-color: black; 
+  color: orange;
+  border-radius: 15px;
+  border: 5px solid orange;
+  font-size: 20px;
+  width: 120px;
+  height: 70px;
+} 
+#titulo {
+  color: orange;
+  font-family: "Noto Sans", sans-serif;
+  padding: 10px 10px;
+}
+
+p {
+  color: orange;
+}
+#logo {
+  max-width: 180px;
+  animation: aparecer 3s linear;
+}
+</style>
+<script>
+windows.style.display = 'none';
+
+setTimeout(confirme, 1000);
+
+function confirme() {
+  let pregunta = confirm("Hola, Bienvenido a Seguridad v1.3");
+  if (pregunta) {
+    windows.style.display = 'block';
+    windows.style.animation = 'aparecer 3s linear';
+  }
+}
+
+const CODIGO = ["130204", "040213"];
+const Nombre = ["Emanuel", "Ricardo"];
+
+const inputNombre = document.getElementById('youname');
+const inputCoder = document.getElementById('codigo'); 
+const user = document.getElementById('usuario');
+const salida = document.getElementById('prints');
+
+let estado_user = false;
+ 
+function Confirmar() {
+  let es_nombre = "";
+  let es_codigo = "";
+
+  const tipo_user = user.value;
+  if (tipo_user === "not") {
+    estado_user = false;
+  } else {
+    estado_user = true;
+  }
+  const nombre_ingresado = inputNombre.value;
+  const codigo_ingresado = inputCoder.value;
+  
+  const verificar_nombre = nombre_ingresado === Nombre[tipo_user] && estado_user === true;
+  const verificar_codigo = codigo_ingresado === CODIGO[tipo_user] && estado_user === true;
+  
+  if (verificar_nombre) {
+    es_nombre = "El nombre es correcto";
+  } else {
+    if (estado_user === true) {
+      if (!nombre_ingresado) {
+        es_nombre = "No hay caracteres en la casilla";
+      } else {
+        es_nombre = "El nombre es incorrecto";
+      }
+    } else {
+      es_nombre = "Primero, seleccione su ID";
+    }
+  } 
+  if (verificar_codigo) {
+    es_codigo = "El codigo es correcto";   // ✅ Bug corregido
+  } else {
+    if (estado_user === true) {
+      if (!codigo_ingresado) {
+        es_codigo = "No hay caracteres en la casilla";
+      } else {
+        es_codigo = "El codigo es incorrecto";
+      }
+    } else {
+      es_codigo = "Primero seleccione su ID";
+    }
+  }  
+
+  // 👉 Ahora sí, después de asignar mensajes:
+  let memoria = es_nombre + " | " + es_codigo;
+  salida.textContent = memoria;
+}
+</script>
+</html>
